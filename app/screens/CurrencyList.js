@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, Text, StatusBar, View } from 'react-native';
-
+import { FlatList, StatusBar, View } from 'react-native';
+import { ListItem, Separator } from '../components/List';
 import currencies from '../data/currencies';
+const TEMP_CURRENT_CURRENCY = 'CAD';
 
 class CurrencyList extends Component {
   handlePress = () => {
@@ -11,15 +12,22 @@ class CurrencyList extends Component {
   render() {
     return (
       <View>
-        <StatusBar translucent={false} barStyle="default" />
+        <StatusBar translucent={false} barStyle="light-content" />
         <FlatList
           data={currencies}
-          renderItem={({ item }) => <Text>{item}</Text>}
-          keyExtractor={item => item}
-        />
-      </View>
-    );
-  }
-}
-
-export default CurrencyList;
+          renderItem={({ item }) => (
+            <ListItem
+              text={item}
+              selected={item === TEMP_CURRENT_CURRENCY}
+              onPress={this.handlePress}
+            />
+          )}
+           keyExtractor={item => item}
+          ItemSeparatorComponent={Separator}
+         />
+       </View>
+     );
+   }
+ }
+ 
+ export default CurrencyList;
